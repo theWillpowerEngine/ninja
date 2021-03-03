@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ninja.common\ninja.common.csproj" />
+    <ProjectReference Include="..\ninja.lang\ninja.lang.csproj" />
+  </ItemGroup>
+
+</Project>
