@@ -10,13 +10,18 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ninja.common", "ninja.common\ninja.common.csproj", "{318F3F38-8EC8-4208-B14D-E965E4F068FC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{801B5336-1841-4EA7-BC85-8939B5B339F4}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{52CABD12-44A5-4510-BDB5-CAE8854BB274}"
 	ProjectSection(SolutionItems) = preProject
-		complex hello.ninja = complex hello.ninja
-		README.md = README.md
-		simple hello.ninja = simple hello.ninja
+		litterbox\sample ninjafiles\complex-hello.ninja = litterbox\sample ninjafiles\complex-hello.ninja
+		litterbox\sample ninjafiles\litterbox.ninja = litterbox\sample ninjafiles\litterbox.ninja
+		litterbox\sample ninjafiles\simple-hello.ninja = litterbox\sample ninjafiles\simple-hello.ninja
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ninja.std", "ninja.std\ninja.std.csproj", "{7406432F-7254-44AA-ABA5-FD0D80797302}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +41,10 @@ Global
 		{318F3F38-8EC8-4208-B14D-E965E4F068FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{318F3F38-8EC8-4208-B14D-E965E4F068FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{318F3F38-8EC8-4208-B14D-E965E4F068FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7406432F-7254-44AA-ABA5-FD0D80797302}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7406432F-7254-44AA-ABA5-FD0D80797302}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7406432F-7254-44AA-ABA5-FD0D80797302}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7406432F-7254-44AA-ABA5-FD0D80797302}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

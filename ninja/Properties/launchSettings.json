@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ninja": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\Dan\\source\\repos\\theWillpowerEngine\\ninja\\litterbox\\sample ninjafiles\\"
+    }
+  }
+}

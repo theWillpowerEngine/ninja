@@ -68,4 +68,48 @@ Given what we now know, we can identify that when is the property name, ready is
 
 ## Imperative ninja
 
-So far we've covered the declarative side of ninja
+So far we've covered the declarative side of ninja, at least from a syntactic perspective; it's not very interesting.  
+
+ninja is programmed with about the simplest possible programming language syntax.  While the keywords, ideas and implementation are radically different, it syntactically resembles FORTH.  Like so:
+
+    command = <keyword> [<parameter value>]...
+
+    program = <command> ...
+
+Line endings are ignored, meaning you can split your program up however makes sense.  Keywords always take a fixed number of parameter values, which can be either literals (strings, numbers, etc.) or reference the ninja object's properties using the $ syntax seen in the earlier hello world example.
+
+The flexibility comes from how easy it is for a variety of different systems (including your own code) to add keywords.  Libraries, third party integrations, other applications, and ninja subsystems can all add keywords directly into your interpreter space, allowing you to interact with a flexible grammar that expands to meet your needs.
+
+## Putting it Together
+
+Okay so this (very brief and not-at-all-comprehensive) introduction might have you asking, "Why is this useful?"
+
+Well there's a lot more to ninja that can be explained in a readme, but let's take a look at an extended example quickly and review some code to give you at least the beginnings of the idea about why ninja is pretty cool.
+
+Here's the code for an application consisting of three pieces, a worker service that operates on data over time, a web service which exposes http endpoints to interact with data, and a console application which runs the whole thing and brings it together.
+
+    app: set:
+        uses: terminal worker service
+        collection:
+            1:
+                name: First Thing
+            2:
+                name: Second Thing
+
+        worker: worker:
+            data: collection
+        webApp: service:
+            data: collection
+            port: 8080
+
+        cmd:
+            when: ready {
+                print 'Press enter to end' input
+            }
+            when: input {
+                print 'Finishing..." 
+                finish-worker finish-service
+                finish
+            }
+
+We're going to take a look at the worker and web service parts in a bit, but it's key to understand that this little bit of code represents three distinct services in their own threads and contexts sharing data and resources like a terminal.

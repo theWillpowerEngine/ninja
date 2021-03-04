@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ninja.common;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -149,8 +150,8 @@ namespace ninja.lang
                             break;
 
                         case ParseAtomType.NameValueCodePrefix:
-                            if(startLine == 0)
-                                Error("Cannot have an name/value pair on the top level");
+                            if (startLine == 0)
+                                retVal.Value = atom.Value2;
                             retVal.Type = NinjaType.Value;
                             scanningCode = true;
                             break;
@@ -161,7 +162,7 @@ namespace ninja.lang
 
                         case ParseAtomType.NameValueObjectPrefix:
                             if (startLine == 0)
-                                Error("Cannot have an name/value pair on the top level");
+                                retVal.Value = atom.Value2;
                             retVal.Type = NinjaType.Object;
                             break;
 

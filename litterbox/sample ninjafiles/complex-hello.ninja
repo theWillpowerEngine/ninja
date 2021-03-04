@@ -1,0 +1,5 @@
+my-app:
+    data:
+        what-to-say: Hello Nurse!
+
+    when: ready: print $data.what-to-say

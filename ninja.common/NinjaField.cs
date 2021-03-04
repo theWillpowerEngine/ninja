@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ninja.lang
+namespace ninja.common
 {
     public class NinjaField
     {
@@ -27,21 +27,21 @@ namespace ninja.lang
             get => !string.IsNullOrEmpty(MetaValue);
         }
 
-        internal NinjaField(string name, string val)
+        public NinjaField(string name, string val)
         {
             Name = name.ToLower().Trim();
             _isValue = true;
             Value = val;
         }
 
-        internal NinjaField(string name, List<NinjaField> fields)
+        public NinjaField(string name, List<NinjaField> fields)
         {
             Name = name.ToLower().Trim();
             _isValue = false;
             ObjectValue = new NinjaObject(name, fields);
         }
 
-        internal NinjaField(string name, NinjaObject ob)
+        public NinjaField(string name, NinjaObject ob)
         {
             Name = name.ToLower().Trim();
             _isValue = false;
@@ -52,7 +52,7 @@ namespace ninja.lang
         {
             if (_isValue)
                 return Value;
-            return "<Ninja Object>";
+            return $"<Object {Name}>";
         }
     }
 }

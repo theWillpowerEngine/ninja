@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ninja.common;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,6 +76,9 @@ namespace ninja.lang
             if (work != "")
                 retVal.Push(work);
 
+            if (stringChar != "")
+                throw new InvalidOperationException("Unterminated string: " + work);
+
             return new Stack<string>(retVal);
         }
 
@@ -84,6 +88,44 @@ namespace ninja.lang
             {
                 return Object.GetValue(value.TrimStart('$')).Value;
             } 
+            else if (value.Contains("[") && value.Contains("]"))
+            {
+                var newValue = new StringBuilder();
+                bool inTag = false;
+                string work = "";
+                for(var i=0; i<value.Length; i++)
+                {
+                    var c = value[i];
+                    switch(c)
+                    {
+                        case '[':
+                            if (inTag)
+                                work += c;
+                            else
+                                inTag = true;
+                            break;
+
+                        case ']':
+                            if (!inTag)
+                                newValue.Append(c);
+                            else
+                            {
+                                inTag = false;
+                                newValue.Append(ProcessValue($"${work}"));
+                                work = "";
+                            }
+                            break;
+
+                        default:
+                            if (inTag)
+                                work += c;
+                            else
+                                newValue.Append(c);
+                            break;
+                    }
+                }
+                return newValue.ToString();
+            }
             else
             {
                 return value;
@@ -93,6 +135,7 @@ namespace ninja.lang
         public void Evaluate(string code)
         {
             var codeStack = FancyStringSplit(code);
+            var dataStack = new ConcurrentStack<NinjaField>();
 
             while(codeStack.Count > 0)
             {
@@ -106,7 +149,7 @@ namespace ninja.lang
                     for (var i = 0; i < handler.Params; i++)
                         parms.Add(ProcessValue(codeStack.Pop()));
 
-                    handler.Execute(parms);
+                    handler.Execute(parms, ref dataStack);
                 }
             }
         }

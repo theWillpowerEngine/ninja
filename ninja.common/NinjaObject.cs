@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using ninja.common;
 
-namespace ninja.lang
+namespace ninja.common
 {
     public enum NinjaType
     {
