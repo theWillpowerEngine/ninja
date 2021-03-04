@@ -11,8 +11,17 @@ namespace ninja
 
         static void Evaluate(string code)
         {
-            var obj = Ninja.Parse(code);
-            obj.Evaluate();
+            try
+            {
+                var obj = Ninja.Parse(code);
+                obj.Evaluate();
+            } 
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                Console.WriteLine("ERROR:  " + ex.Message);
+                Console.WriteLine();
+            }
         }
 
         static void CommandMode(string[] args)

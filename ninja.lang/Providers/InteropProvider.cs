@@ -1,4 +1,5 @@
 ﻿using ninja.lang;
+using ninja.std;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -8,6 +9,8 @@ namespace ninja.lang.providers
 {
     internal class InteropProvider
     {
+        private NinjaContext _nc;
+        
         private static readonly ConcurrentDictionary<string, Interopper> Std = new ConcurrentDictionary<string, Interopper>();
         
         internal Interopper Get(string name)
@@ -17,6 +20,18 @@ namespace ninja.lang.providers
                 return Std[name.ToLower()];
 
             return null;
+        }
+
+        private void CreateDefaultInterops()
+        {
+            Std.TryAdd("terminal", new Interopper(_nc, "terminal", new Terminal()));
+        }
+
+        internal InteropProvider(NinjaContext nc)
+        {
+            _nc = nc;
+
+            CreateDefaultInterops();
         }
     }
 }

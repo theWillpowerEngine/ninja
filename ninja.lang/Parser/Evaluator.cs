@@ -140,8 +140,8 @@ namespace ninja.lang
             while(codeStack.Count > 0)
             {
                 var kw = codeStack.Pop();
-                
-                if(Keywords.ContainsKey(kw.ToLower()))
+
+                if (Keywords.ContainsKey(kw.ToLower()))
                 {
                     var handler = Keywords[kw.ToLower()];
                     var parms = new List<string>();
@@ -151,6 +151,8 @@ namespace ninja.lang
 
                     handler.Execute(parms, ref dataStack);
                 }
+                else
+                    throw new InvalidOperationException("Unknown keyword: " + kw);
             }
         }
 

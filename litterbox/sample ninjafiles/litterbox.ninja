@@ -1,5 +1,3 @@
 my-app:
-    data:
-        what-to-say: Hello Nurse!
-
-    when: ready: print "The data is, [data.what-to-say]."
+    use: terminal
+    when: ready: shit shit print "not shit!"

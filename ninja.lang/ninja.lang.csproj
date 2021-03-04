@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ninja.common\ninja.common.csproj" />
+    <ProjectReference Include="..\ninja.std\ninja.std.csproj" />
   </ItemGroup>
 
 </Project>

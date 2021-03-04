@@ -1,4 +1,5 @@
 ﻿using ninja.common;
+using ninja.lang.providers;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace ninja.lang
         private bool HasReadied = false;
 
         internal List<Interopper> Interops = new List<Interopper>();
+        internal readonly InteropProvider InteropProvider;
         
         public readonly NinjaObject Object;
         public readonly Evaluator Evaluator;
@@ -24,17 +26,28 @@ namespace ninja.lang
             Object = obj;
             Evaluator = new Evaluator(obj, this);
             Keywords = Evaluator.GetKeywords();
+
+            InteropProvider = new InteropProvider(this);
         }
 
-        public void Evaluate(string code = null)
+        public void Evaluate()
         {
-            //Lifecycle time, woo hoo
-
             //Step 1)  Apply uses
             var use = Object["use"];
-            if(use.Count > 0)
+            if(use?.Count > 0)
             {
+                foreach(var u in use)
+                {
+                    var eles = u.Value.Split(new char[] { ' ', '\t', ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach(var ele in eles)
+                    {
+                        var intop = InteropProvider.Get(ele);
+                        if (intop == null)
+                            throw new NullReferenceException("Interop Provider not found for " + u.Value);
 
+                        intop.Install();
+                    }
+                }
             }
 
             //Step 2)  Apply type

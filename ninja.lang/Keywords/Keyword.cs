@@ -29,5 +29,11 @@ namespace ninja.lang
         {
             Params = parms;
         }
+
+        internal Keyword(int parms, Func<List<string>, ConcurrentStack<NinjaField>, ConcurrentStack<NinjaField>> handler)
+        {
+            Params = parms;
+            _handler = handler;
+        }
     }
 }
